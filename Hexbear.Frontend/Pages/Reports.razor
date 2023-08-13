@@ -1,0 +1,12 @@
+﻿@page "/reports"
+@inject HexbearAPIClient _client
+
+<PageTitle>Reports</PageTitle>
+@if (ReportItems == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+<ReportDataTable Height="1000px" ReportItems="this.ReportItems" Title="Reports"></ReportDataTable>
+}

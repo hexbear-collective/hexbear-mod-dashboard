@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="false" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Dense Color="Color.Tertiary">
+        <MudButton Variant="Variant.Text" Href="/">Hexbear Moderation Tools</MudButton>
+        <MudSpacer />
+        <MudButton Variant="Variant.Text" Href="/logs">Logs</MudButton>
+        <MudButton Variant="Variant.Text" Href="/reports">Reports</MudButton>
+        <MudButton Variant="Variant.Text" Href="/listusers">Users</MudButton>
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer Fixed="true" Style="margin-top:8px">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+

@@ -1,0 +1,48 @@
+﻿<MudDataGrid T="ReportItem" Height="@Height" Dense="true" Items="@ReportItems" SortMode="SortMode.Multiple" QuickFilter="@_quickFilter" Filterable="true">
+     <ToolBarContent>
+         <MudText Typo="Typo.h6">@Title</MudText>
+         <MudSpacer />
+         <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+     </ToolBarContent>
+     <Columns>
+         <PropertyColumn Property="x => x.ReportType" Title="Report Type" HeaderStyle="width: 130px;" />
+         <TemplateColumn>
+             <HeaderTemplate>
+                 <span>Posted By</span>
+             </HeaderTemplate>
+             <CellTemplate>
+                 <MudButton Size="@Size.Small" Variant="@Variant.Text" Color="@Color.Primary" Href="@($"/u/{context.Item.PosterName}")">@context.Item.PosterName</MudButton>
+             </CellTemplate>
+         </TemplateColumn>
+         <TemplateColumn>
+             <HeaderTemplate>
+                 <span>Reported By</span>
+             </HeaderTemplate>
+             <CellTemplate>
+                 <MudButton Size="@Size.Small" Variant="@Variant.Text" Color="@Color.Primary" Href="@($"/u/{context.Item.CreatorName}")">@context.Item.CreatorName</MudButton>
+             </CellTemplate>
+         </TemplateColumn>
+         <PropertyColumn Property="x => x.Reason" Title="Reason" />
+         <TemplateColumn HeaderStyle="width: 320px;">
+             <HeaderTemplate>
+                 <span>Original Text</span>
+             </HeaderTemplate>
+             <CellTemplate>
+                 <span class="elipsis" title="@context.Item.OriginalText">@context.Item.OriginalText</span>
+             </CellTemplate>
+         </TemplateColumn>
+         <PropertyColumn Property="x => x.Resolved" Title="Resolved" />
+         <TemplateColumn>
+             <HeaderTemplate>
+                 <span>Resolved By</span>
+             </HeaderTemplate>
+             <CellTemplate>
+                 <MudButton Size="@Size.Small" Variant="@Variant.Text" Color="@Color.Primary" Href="@($"/u/{context.Item.ResolverName}")">@context.Item.ResolverName</MudButton>
+             </CellTemplate>
+         </TemplateColumn>
+     </Columns>
+     <PagerContent>
+         <MudDataGridPager T="ReportItem" PageSizeOptions="@(new int[]{50,100,500,1000})" />
+     </PagerContent>
+ </MudDataGrid>

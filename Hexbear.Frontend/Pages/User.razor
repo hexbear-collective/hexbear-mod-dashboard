@@ -1,0 +1,20 @@
+﻿@page "/u/{Username}"
+@inject HexbearAPIClient _client
+
+<PageTitle>User @this?.Person?.Name</PageTitle>
+@if (this.Person == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+
+    <h2>User @this?.Person?.DisplayName</h2>
+
+    <div>User has upvoted @UpvotedRemovedPosts removed Posts</div>
+    <div>User has upvoted @UpvotedRemovedComments removed Comments</div>
+
+    <ReportDataTable Height="500px" ReportItems="@ReportedItems" Title="@($"Reports Against User ({GetAgainstCount()})")"></ReportDataTable>
+    <br />
+    <ReportDataTable Height="500px" ReportItems="@ReportsCreatedItems" Title="@($"Reports Created By User ({GetCreatedCount()})")"></ReportDataTable>
+}
