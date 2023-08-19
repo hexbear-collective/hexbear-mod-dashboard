@@ -1,6 +1,6 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-preview AS base
+FROM mcr.microsoft.com/dotnet/nightly/sdk:7.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 7082
@@ -8,9 +8,10 @@ EXPOSE 7082
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-preview AS build
 WORKDIR /src
-COPY ["Hexbear.API/Hexbear.API.csproj", "Hexbear.API/"]
+COPY ./Hexbear.API/Hexbear.API.csproj ./Hexbear.API/
+COPY ./Hexbear.Lib ./Hexbear.Lib
 RUN dotnet restore "Hexbear.API/Hexbear.API.csproj"
-COPY . .
+COPY ./Hexbear.API ./Hexbear.API
 WORKDIR "/src/Hexbear.API"
 RUN dotnet build "Hexbear.API.csproj" -c Release -o /app/build
 

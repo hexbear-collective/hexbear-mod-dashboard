@@ -6,6 +6,8 @@ COPY ./Hexbear.Frontend/Hexbear.Frontend.csproj ./Hexbear.Frontend/
 COPY ./Hexbear.Lib ./Hexbear.Lib
 RUN dotnet restore ./Hexbear.Frontend/Hexbear.Frontend.csproj
 COPY ./Hexbear.Frontend ./Hexbear.Frontend
+ARG AppSettings="{}"
+RUN echo $AppSettings > ./Hexbear.Frontend/wwwroot/appsettings.json
 RUN dotnet build ./Hexbear.Frontend/Hexbear.Frontend.csproj -c Release -o /app/build
 
 FROM build AS publish
