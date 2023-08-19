@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 7082
 #EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-preview AS build
+FROM mcr.microsoft.com/dotnet/nightly/sdk:7.0 AS build
 WORKDIR /src
 COPY ./Hexbear.API/Hexbear.API.csproj ./Hexbear.API/
 COPY ./Hexbear.Lib ./Hexbear.Lib
