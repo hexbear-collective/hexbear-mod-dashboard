@@ -28,7 +28,7 @@ namespace Hexbear.API.Services
             {
                 if (!File.Exists($@"{container}/hostname"))
                     continue;
-                string hostname = File.ReadAllText($@"{container}/hostname").Trim();
+                string hostname = (await File.ReadAllTextAsync($@"{container}/hostname")).Trim();
                 if (!whitelistedHostNames.Contains(hostname))
                     continue;
                 var files = Directory.EnumerateFiles($@"{container}/", "*json.log*", SearchOption.AllDirectories).ToList();
