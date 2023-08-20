@@ -16,6 +16,8 @@ namespace Hexbear.API.Services
             var containers = Directory.EnumerateDirectories(directory);
             foreach (var container in containers)
             {
+                if (!File.Exists($@"{container}/hostname"))
+                    continue;
                 string hostname = File.ReadAllText($@"{container}/hostname");
                 var files = Directory.EnumerateFiles($@"{container}/", "*json.log*", SearchOption.AllDirectories).ToList();
                 var logItems = files.SelectMany(y =>
