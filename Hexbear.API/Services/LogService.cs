@@ -8,7 +8,7 @@ namespace Hexbear.API.Services
         public async Task<LogResponse> ListLogs()
         {
             //Get logs from volume within container
-            var directory = $@"{Directory.GetCurrentDirectory()}\Logs\";
+            var directory = $@"{Directory.GetCurrentDirectory()}/Logs/";
 #if DEBUG
             directory = $@"{Directory.GetCurrentDirectory()}\bin\Debug\net7.0\Logs\";
 #endif
