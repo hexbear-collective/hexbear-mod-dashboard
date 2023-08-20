@@ -20,4 +20,5 @@ RUN dotnet publish "Hexbear.API.csproj" -c Release -o /app/publish /p:UseAppHost
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN dotnet dev-certs https
 ENTRYPOINT ["dotnet", "Hexbear.API.dll"]
