@@ -47,6 +47,7 @@ namespace Hexbear.API
             optionsBuilder.UseNpgsql(appsettings.ConnectionString, pgOpt => { pgOpt.CommandTimeout(120); });
             var db = new LemmyContext(optionsBuilder.Options);
             JWT_SECRET = db.Secrets.First().JwtSecret;
+            Console.WriteLine(JWT_SECRET ?? "No jwt secret");
 
             Routing.Route(app);
 
@@ -72,6 +73,7 @@ namespace Hexbear.API
         public async Task InvokeAsync(HttpContext context, LoggedInUser user, LemmyContext db)
         {
             var authCookie = context.Request.Cookies["jwt"];
+            Console.WriteLine(authCookie ?? "No cookie");
             if (authCookie != null)
             {
                 var key = Encoding.ASCII.GetBytes(Program.JWT_SECRET);
