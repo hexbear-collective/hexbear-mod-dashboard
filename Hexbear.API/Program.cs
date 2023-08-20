@@ -39,7 +39,7 @@ namespace Hexbear.API
                 .SetIsOriginAllowed(origin => true)
                 .AllowCredentials()
             );
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthMiddleware();
 
             //Load jwt secret for auth
