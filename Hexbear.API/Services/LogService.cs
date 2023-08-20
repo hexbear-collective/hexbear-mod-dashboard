@@ -14,11 +14,23 @@ namespace Hexbear.API.Services
 #endif
             var logs = new List<DockerLog>();
             var containers = Directory.EnumerateDirectories(directory);
+            var whitelistedHostNames = new List<string>()
+            {
+                "certbot",
+                "dashboard-api",
+                "dashboard-frontend",
+                "lemmy",
+                "lemmy-ui",
+                "pictrs",
+                "proxy",
+            };
             foreach (var container in containers)
             {
                 if (!File.Exists($@"{container}/hostname"))
                     continue;
                 string hostname = File.ReadAllText($@"{container}/hostname");
+                if (!whitelistedHostNames.Contains(hostname))
+                    continue;
                 var files = Directory.EnumerateFiles($@"{container}/", "*json.log*", SearchOption.AllDirectories).ToList();
                 var logItems = files.SelectMany(y =>
                 {
