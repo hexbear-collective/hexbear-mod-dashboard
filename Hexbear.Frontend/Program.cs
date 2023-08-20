@@ -43,23 +43,20 @@ namespace Hexbear.Frontend
 
     public class CustomMessageHandler : DelegatingHandler
     {
-        private readonly string host;
         readonly NavigationManager _navigationManager;
 
-        CustomMessageHandler(IWebAssemblyHostEnvironment webAssemblyHostEnvironment, NavigationManager navigationManager)
+        public CustomMessageHandler(NavigationManager navigationManager)
         {
-            host = webAssemblyHostEnvironment.BaseAddress;
             _navigationManager = navigationManager;
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var response = await base.SendAsync(request, cancellationToken);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                _navigationManager.NavigateTo("/Unauthorized", forceLoad: true);
+                _navigationManager.NavigateTo("/Unauthorized", forceLoad: false);
             }
 
             return response;
