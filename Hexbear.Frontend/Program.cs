@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 using MudBlazor.Services;
 
 namespace Hexbear.Frontend
@@ -34,10 +35,18 @@ namespace Hexbear.Frontend
     /// </summary>
     public class CookieHandler : DelegatingHandler
     {
+        protected IJSRuntime _jsRuntime;
+        public CookieHandler(IJSRuntime jsRuntime)
+        {
+            _jsRuntime = jsRuntime;
+        }
+
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
-            Console.WriteLine(request.Headers.GetValues("Cookie"));
+            var cookie = await _jsRuntime.InvokeAsync<string>("eval", $"document.cookie");
+            Console.WriteLine(cookie);
+            request.Headers.Add("Cookie", cookie);
             return await base.SendAsync(request, cancellationToken);
         }
     }
