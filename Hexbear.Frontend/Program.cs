@@ -1,5 +1,6 @@
 global using Hexbear.Lib.EFCore;
 using Hexbear.Lib;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
@@ -19,7 +20,7 @@ namespace Hexbear.Frontend
             builder.Services.AddMudServices();
             builder.Services.AddTransient<CookieHandler>()
                 .AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"))
-                .AddHttpClient("API", client => client.BaseAddress = new Uri(appsettings.APIUrl)).AddHttpMessageHandler<CookieHandler>();
+                .AddHttpClient("API", client => client.BaseAddress = new Uri(appsettings.APIUrl)).AddHttpMessageHandler<CookieHandler>().AddHttpMessageHandler<CustomMessageHandler>();
 
             builder.Services.AddSingleton<HexbearAPIClient>();
 
@@ -36,6 +37,31 @@ namespace Hexbear.Frontend
         {
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
             return await base.SendAsync(request, cancellationToken);
+        }
+    }
+
+    public class CustomMessageHandler : DelegatingHandler
+    {
+        private readonly string host;
+        readonly NavigationManager _navigationManager;
+
+        CustomMessageHandler(IWebAssemblyHostEnvironment webAssemblyHostEnvironment, NavigationManager navigationManager)
+        {
+            host = webAssemblyHostEnvironment.BaseAddress;
+            _navigationManager = navigationManager;
+        }
+
+        protected override async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            var response = await base.SendAsync(request, cancellationToken);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                _navigationManager.NavigateTo("/Unauthorized", forceLoad: true);
+            }
+
+            return response;
         }
     }
 }
