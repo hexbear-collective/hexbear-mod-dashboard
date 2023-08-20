@@ -37,6 +37,7 @@ namespace Hexbear.Frontend
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+            Console.WriteLine(request.Headers.GetValues("Cookie"));
             return await base.SendAsync(request, cancellationToken);
         }
     }
