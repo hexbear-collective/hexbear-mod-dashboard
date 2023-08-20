@@ -18,6 +18,10 @@ namespace Hexbear.Frontend
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
             var appsettings = new Appsettings(builder.Configuration);
+            if (builder.HostEnvironment.IsProduction())
+            {
+                builder.Logging.SetMinimumLevel(LogLevel.Warning);
+            }
             builder.Services.AddMudServices();
             builder.Services.AddTransient<CustomMessageHandler>();
             builder.Services.AddTransient<CookieHandler>()
@@ -35,12 +39,6 @@ namespace Hexbear.Frontend
     /// </summary>
     public class CookieHandler : DelegatingHandler
     {
-        protected IJSRuntime _jsRuntime;
-        public CookieHandler(IJSRuntime jsRuntime)
-        {
-            _jsRuntime = jsRuntime;
-        }
-
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
@@ -63,7 +61,7 @@ namespace Hexbear.Frontend
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                _navigationManager.NavigateTo("/Unauthorized", forceLoad: false);
+                _navigationManager.NavigateTo("/Unauthorized", forceLoad: true);
             }
 
             return response;

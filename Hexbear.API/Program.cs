@@ -2,6 +2,8 @@ using Hexbear.Lib;
 using Hexbear.Lib.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Events;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
@@ -15,13 +17,25 @@ namespace Hexbear.API
 
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
+
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.UseDefaultServiceProvider(o =>
             {
                 o.ValidateScopes = true;
                 o.ValidateOnBuild = false;
             });
-
+            builder.Host.UseSerilog((context, services, configuration) => configuration
+                                    .ReadFrom.Configuration(context.Configuration)
+                                    .ReadFrom.Services(services)
+                                    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                                    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning)
+                                    .Enrich.FromLogContext()
+                                    .WriteTo.Console());
             var appsettings = new Appsettings(builder.Configuration);
             builder.Services.AddDbContext<LemmyContext>(opt => { opt.UseNpgsql(appsettings.ConnectionString, pgOpt => { pgOpt.CommandTimeout(120); }).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); });
             builder.Services.AddScoped<LoggedInUser>();
@@ -33,6 +47,7 @@ namespace Hexbear.API
             });
 
             var app = builder.Build();
+            app.UseSerilogRequestLogging();
             app.UseCors(x => x
                 .AllowAnyHeader()
                 .AllowAnyMethod()
@@ -72,7 +87,6 @@ namespace Hexbear.API
         public async Task InvokeAsync(HttpContext context, LoggedInUser user, LemmyContext db)
         {
             var authCookie = context.Request.Cookies["jwt"];
-            Console.WriteLine(authCookie ?? "No cookie");
             if (authCookie != null)
             {
                 var key = Encoding.ASCII.GetBytes(Program.JWT_SECRET);

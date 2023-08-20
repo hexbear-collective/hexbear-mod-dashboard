@@ -6,6 +6,7 @@ public partial class User
 {
     [Parameter]
     public string Username { get; set; }
+    private string _localUsername;
 
     public Person Person { get; private set; }
     public List<ReportItem> ReportedItems { get; private set; }
@@ -15,6 +16,7 @@ public partial class User
 
     protected override async Task OnInitializedAsync()
     {
+        _localUsername = Username;
         var res = await _client.GetUser(this.Username);
         this.Person = res.Person;
         this.ReportedItems = res.ReportedItems;
@@ -27,6 +29,8 @@ public partial class User
 
     protected override async Task OnParametersSetAsync()
     {
+        if (_localUsername == Username)
+            return;
         this.Person = null;
         await OnInitializedAsync();
     }
