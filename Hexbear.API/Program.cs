@@ -36,7 +36,8 @@ namespace Hexbear.API
             app.UseCors(x => x
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-                .SetIsOriginAllowed(origin => true)
+                .AllowAnyOrigin()
+                //.SetIsOriginAllowed(origin => true)
                 .AllowCredentials()
             );
             //app.UseHttpsRedirection();
