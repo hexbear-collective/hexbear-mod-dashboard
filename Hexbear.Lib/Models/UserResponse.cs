@@ -7,7 +7,7 @@ namespace Hexbear.Lib.Models
         public Person Person { get; set; }
         public List<ReportItem> ReportedItems { get; set; }
         public List<ReportItem> ReportsCreatedItems { get; set; }
-        public int UpvotedRemovedPosts { get; set; }
-        public int UpvotedRemovedComments { get; set; }
+        public List<Post> UpvotedRemovedPosts { get; set; }
+        public List<Comment> UpvotedRemovedComments { get; set; }
     }
 }

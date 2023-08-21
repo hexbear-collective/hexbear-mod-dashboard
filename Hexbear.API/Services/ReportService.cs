@@ -17,7 +17,8 @@ namespace Hexbear.API.Services
                     ResolverName = x.Resolver.Name,
                     PosterName = x.Comment.Creator.Name,
                     ReportType = "Comment",
-                    OriginalText = x.OriginalCommentText
+                    OriginalText = x.OriginalCommentText,
+                    DateCreated = x.Published,
                 })
                 .ToListAsync();
             var postReports = await db.PostReports
@@ -29,7 +30,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.Post.Creator.Name,
                 ReportType = "Post",
-                OriginalText = x.OriginalPostBody
+                OriginalText = x.OriginalPostBody,
+                DateCreated = x.Published,
             })
             .ToListAsync();
             var dmReports = await db.PrivateMessageReports
@@ -41,12 +43,13 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.PrivateMessage.Creator.Name,
                 ReportType = "Private Message",
-                OriginalText = x.OriginalPmText
+                OriginalText = x.OriginalPmText,
+                DateCreated = x.Published,
             })
             .ToListAsync();
             return new ReportsResponse()
             {
-                ReportItems = commentReports.Concat(postReports).Concat(dmReports).ToList()
+                ReportItems = commentReports.Concat(postReports).Concat(dmReports).OrderByDescending(x => x.DateCreated).ToList()
             };
         }
     }

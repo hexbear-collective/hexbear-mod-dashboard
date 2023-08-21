@@ -28,7 +28,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.Comment.Creator.Name,
                 ReportType = "Comment",
-                OriginalText = x.OriginalCommentText
+                OriginalText = x.OriginalCommentText,
+                DateCreated = x.Published,
             }).ToListAsync();
             var postReports = await db.PostReports.Where(x => x.Post.CreatorId == person.Id).Select(x => new ReportItem()
             {
@@ -38,7 +39,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.Post.Creator.Name,
                 ReportType = "Post",
-                OriginalText = x.OriginalPostBody
+                OriginalText = x.OriginalPostBody,
+                DateCreated = x.Published,
             }).ToListAsync();
             var dmReports = await db.PrivateMessageReports.Where(x => x.CreatorId == person.Id).Select(x => new ReportItem()
             {
@@ -48,7 +50,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.PrivateMessage.Creator.Name,
                 ReportType = "Private Message",
-                OriginalText = x.OriginalPmText
+                OriginalText = x.OriginalPmText,
+                DateCreated = x.Published,
             }).ToListAsync();
 
             var commentReportsCreated = await db.CommentReports.Where(x => x.CreatorId == person.Id).Select(x => new ReportItem()
@@ -59,7 +62,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.Comment.Creator.Name,
                 ReportType = "Comment",
-                OriginalText = x.OriginalCommentText
+                OriginalText = x.OriginalCommentText,
+                DateCreated = x.Published,
             }).ToListAsync();
             var postReportsCreated = await db.PostReports.Where(x => x.CreatorId == person.Id).Select(x => new ReportItem()
             {
@@ -69,7 +73,8 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.Post.Creator.Name,
                 ReportType = "Post",
-                OriginalText = x.OriginalPostBody
+                OriginalText = x.OriginalPostBody,
+                DateCreated = x.Published,
             }).ToListAsync();
             var dmReportsCreated = await db.PrivateMessageReports.Where(x => x.PrivateMessage.CreatorId == person.Id).Select(x => new ReportItem()
             {
@@ -79,17 +84,18 @@ namespace Hexbear.API.Services
                 ResolverName = x.Resolver.Name,
                 PosterName = x.PrivateMessage.Creator.Name,
                 ReportType = "Private Message",
-                OriginalText = x.OriginalPmText
+                OriginalText = x.OriginalPmText,
+                DateCreated = x.Published,
             }).ToListAsync();
 
             var upvotedRemovedPosts = (await db.PostLikes
                 .Where(y => y.PersonId == person.Id)
                 .Where(y => y.Post.Removed && y.Post.CreatorId != person.Id)
-                .CountAsync());
+                .Select(y => y.Post).ToListAsync());
             var upvotedRemovedComments = (await db.CommentLikes
                 .Where(y => y.PersonId == person.Id)
                 .Where(y => y.Comment.Removed && y.Comment.CreatorId != person.Id)
-                .CountAsync());
+                .Select(y => y.Comment).ToListAsync());
 
             return new UserResponse()
             {

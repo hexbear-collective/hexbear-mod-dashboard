@@ -1,0 +1,34 @@
+﻿@page "/post/{Id:int}"
+@inject HexbearAPIClient _client
+
+@if (this.Post == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <h2>@Post.Name</h2>
+    <p>
+        <MudMarkdown Value="@Post.Body"></MudMarkdown>
+    </p>
+    <MudDivider DividerType="DividerType.FullWidth" ></MudDivider>
+    <br/>
+    <MudDataGrid T="string" Height="500px" Dense Items="@Post.PostLikes.Select(y => y.Person.Name).OrderBy(x => x)" Filterable="true">
+         <ToolBarContent>
+             <MudText Typo="Typo.h6">Users who upvoted this post</MudText>
+         </ToolBarContent>
+         <Columns>
+             <TemplateColumn>
+                 <HeaderTemplate>
+                     <span>Username</span>
+                 </HeaderTemplate>
+                 <CellTemplate>
+                     <MudButton Style="justify-content: left;" Size="@Size.Small" Variant="@Variant.Text" Color="@Color.Primary" Href="@($"/u/{context.Item}")">@context.Item</MudButton>
+                 </CellTemplate>
+             </TemplateColumn>
+         </Columns>
+         <PagerContent>
+             <MudDataGridPager T="string" PageSizeOptions="@(new int[]{50,200})" />
+         </PagerContent>
+     </MudDataGrid>
+}

@@ -347,7 +347,7 @@ public partial class LemmyContext : DbContext
 
             entity.HasIndex(e => e.Published, "idx_comment_published").IsDescending();
 
-            entity.HasIndex(e => e.Path, "idx_path_gist").HasMethod("gist");
+            //entity.HasIndex(e => e.Path, "idx_path_gist").HasMethod("gist");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ApId)
@@ -366,9 +366,9 @@ public partial class LemmyContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("true")
                 .HasColumnName("local");
-            entity.Property(e => e.Path)
-                .HasDefaultValueSql("'0'::ltree")
-                .HasColumnName("path");
+            //entity.Property(e => e.Path)
+            //    .HasDefaultValueSql("'0'::ltree")
+            //    .HasColumnName("path");
             entity.Property(e => e.PostId).HasColumnName("post_id");
             entity.Property(e => e.Published)
                 .HasDefaultValueSql("now()")

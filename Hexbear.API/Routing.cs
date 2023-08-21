@@ -38,6 +38,24 @@ namespace Hexbear.API
                 var result = await service.ListLogs();
                 return result;
             });
+            app.MapGet("/comment/{id}", async (int id, LemmyContext db) =>
+            {
+                var service = new PostService();
+                var result = await service.GetCommentDetails(id, db);
+                if (result.Comment == null)
+                    return Results.NotFound();
+
+                return Results.Ok(result);
+            });
+            app.MapGet("/post/{id}", async (int id, LemmyContext db) =>
+            {
+                var service = new PostService();
+                var result = await service.GetPostDetails(id, db);
+                if (result.Post == null)
+                    return Results.NotFound();
+
+                return Results.Ok(result);
+            });
         }
     }
 }

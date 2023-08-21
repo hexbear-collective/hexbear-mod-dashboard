@@ -11,8 +11,8 @@ public partial class User
     public Person Person { get; private set; }
     public List<ReportItem> ReportedItems { get; private set; }
     public List<ReportItem> ReportsCreatedItems { get; private set; }
-    public int UpvotedRemovedComments { get; private set; }
-    public int UpvotedRemovedPosts { get; private set; }
+    public List<Comment> UpvotedRemovedComments { get; private set; }
+    public List<Post> UpvotedRemovedPosts { get; private set; }
 
     protected override async Task OnInitializedAsync()
     {

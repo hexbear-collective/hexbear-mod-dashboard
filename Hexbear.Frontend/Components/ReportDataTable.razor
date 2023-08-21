@@ -32,7 +32,7 @@
                  <span class="elipsis" title="@context.Item.OriginalText">@context.Item.OriginalText</span>
              </CellTemplate>
          </TemplateColumn>
-         <PropertyColumn Property="x => x.Resolved" Title="Resolved" />
+         @* <PropertyColumn Property="x => x.Resolved" Title="Resolved" /> *@
          <TemplateColumn>
              <HeaderTemplate>
                  <span>Resolved By</span>
@@ -40,7 +40,8 @@
              <CellTemplate>
                  <MudButton Size="@Size.Small" Variant="@Variant.Text" Color="@Color.Primary" Href="@($"/u/{context.Item.ResolverName}")">@context.Item.ResolverName</MudButton>
              </CellTemplate>
-         </TemplateColumn>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.DateCreated" Title="Date Created" />
      </Columns>
      <PagerContent>
          <MudDataGridPager T="ReportItem" PageSizeOptions="@(new int[]{50,100,500,1000})" />

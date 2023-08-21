@@ -14,5 +14,6 @@
         public string PosterName { get; set; }
         public string ReportType { get; set; }
         public string OriginalText { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

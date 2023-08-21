@@ -26,7 +26,7 @@ public partial class Comment
 
     public bool? Local { get; set; }
 
-    public LTree Path { get; set; }
+    //public LTree Path { get; set; }
 
     public bool Distinguished { get; set; }
 

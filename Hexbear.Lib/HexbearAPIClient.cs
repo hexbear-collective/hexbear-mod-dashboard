@@ -14,6 +14,46 @@ namespace Hexbear.Lib
             _client = clientFactory.CreateClient("API");
         }
 
+        public async Task<PostResponse> GetPost(int id)
+        {
+            try
+            {
+                if (!_isClientSide)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    var response = await _client.GetFromJsonAsync<PostResponse>($"/post/{id}");
+                    return response;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<CommentResponse> GetComment(int id)
+        {
+            try
+            {
+                if (!_isClientSide)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    var response = await _client.GetFromJsonAsync<CommentResponse>($"/comment/{id}");
+                    return response;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public async Task<UserResponse> GetUser(string username)
         {
             try
