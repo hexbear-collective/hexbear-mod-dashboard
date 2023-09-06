@@ -91,17 +91,17 @@ namespace Hexbear.API.Services
             var upvotedRemovedPosts = (await db.PostLikes
                 .Where(y => y.PersonId == person.Id)
                 .Where(y => y.Post.Removed && y.Post.CreatorId != person.Id)
-                .Select(y => y.Post).ToListAsync());
+                .Select(y => y.Post).OrderByDescending(x => x.Id).ToListAsync());
             var upvotedRemovedComments = (await db.CommentLikes
                 .Where(y => y.PersonId == person.Id)
                 .Where(y => y.Comment.Removed && y.Comment.CreatorId != person.Id)
-                .Select(y => y.Comment).ToListAsync());
+                .Select(y => y.Comment).OrderByDescending(x => x.Id).ToListAsync());
 
             return new UserResponse()
             {
                 Person = person,
-                ReportedItems = commentReports.Concat(postReports).Concat(dmReports).ToList(),
-                ReportsCreatedItems = commentReportsCreated.Concat(postReportsCreated).Concat(dmReportsCreated).ToList(),
+                ReportedItems = commentReports.Concat(postReports).Concat(dmReports).OrderByDescending(x => x.DateCreated).ToList(),
+                ReportsCreatedItems = commentReportsCreated.Concat(postReportsCreated).Concat(dmReportsCreated).OrderByDescending(x => x.DateCreated).ToList(),
                 UpvotedRemovedComments = upvotedRemovedComments,
                 UpvotedRemovedPosts = upvotedRemovedPosts
             };
