@@ -39,7 +39,7 @@ namespace Hexbear.API.Services
                     foreach (var log in logs)
                         log.container = hostname;
                     return logs;
-                }).OrderByDescending(x => x.time).ToList();
+                }).OrderByDescending(x => x.time).Take(500).ToList();
                 logs.AddRange(logItems);
             }
 
