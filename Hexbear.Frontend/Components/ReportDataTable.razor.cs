@@ -21,13 +21,13 @@ public partial class ReportDataTable
     {
         if (string.IsNullOrWhiteSpace(_searchString))
             return true;
-        if (x.PosterName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if ((x?.PosterName ?? "").Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (x.CreatorName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if ((x?.CreatorName ?? "").Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (x.OriginalText.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if ((x?.OriginalText ?? "").Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (x.ResolverName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if ((x?.ResolverName ?? "").Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
 
         return false;
