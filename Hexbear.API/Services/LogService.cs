@@ -16,13 +16,10 @@ namespace Hexbear.API.Services
             var containers = Directory.EnumerateDirectories(directory);
             var whitelistedHostNames = new List<string>()
             {
-                "certbot",
                 "dashboard-api",
-                "dashboard-frontend",
                 "lemmy",
                 "lemmy-ui",
                 "pictrs",
-                "proxy",
             };
             foreach (var container in containers)
             {
@@ -39,7 +36,7 @@ namespace Hexbear.API.Services
                     foreach (var log in logs)
                         log.container = hostname;
                     return logs;
-                }).OrderByDescending(x => x.time).Take(500).ToList();
+                }).OrderByDescending(x => x.time).Take(300).ToList();
                 logs.AddRange(logItems);
             }
 
