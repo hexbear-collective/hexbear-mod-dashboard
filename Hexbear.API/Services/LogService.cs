@@ -29,14 +29,14 @@ namespace Hexbear.API.Services
                 if (!whitelistedHostNames.Contains(hostname))
                     continue;
                 var files = Directory.EnumerateFiles($@"{container}/", "*json.log*", SearchOption.AllDirectories).ToList();
-                var logItems = files.SelectMany(y =>
+                var logItems = files.AsParallel().SelectMany(y =>
                 {
                     var logs = File.ReadAllLines(y).Select(x => JsonSerializer.Deserialize<DockerLog>(x)).ToList();
                     var filename = new FileInfo(y).Name;
                     foreach (var log in logs)
                         log.container = hostname;
                     return logs;
-                }).OrderByDescending(x => x.time).Take(300).ToList();
+                }).OrderByDescending(x => x.time).ToList();
                 logs.AddRange(logItems);
             }
 

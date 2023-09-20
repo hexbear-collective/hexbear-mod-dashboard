@@ -26,7 +26,10 @@ namespace Hexbear.Frontend
             builder.Services.AddTransient<CustomMessageHandler>();
             builder.Services.AddTransient<CookieHandler>()
                 .AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"))
-                .AddHttpClient("API", client => client.BaseAddress = new Uri(appsettings.APIUrl)).AddHttpMessageHandler<CookieHandler>().AddHttpMessageHandler<CustomMessageHandler>();
+                .AddHttpClient("API", client => {
+                    client.BaseAddress = new Uri(appsettings.APIUrl);
+                    client.Timeout = TimeSpan.FromMinutes(5);
+                    }).AddHttpMessageHandler<CookieHandler>().AddHttpMessageHandler<CustomMessageHandler>();
 
             builder.Services.AddSingleton<HexbearAPIClient>();
 
