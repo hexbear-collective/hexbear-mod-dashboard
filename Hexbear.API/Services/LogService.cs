@@ -19,7 +19,6 @@ namespace Hexbear.API.Services
                 "dashboard-api",
                 "lemmy",
                 "lemmy-ui",
-                "pictrs",
             };
             foreach (var container in containers)
             {
@@ -35,7 +34,7 @@ namespace Hexbear.API.Services
                     foreach (var log in logs)
                         log.container = hostname;
                     return logs;
-                }).OrderByDescending(x => x.time).Take(10000).ToList();
+                }).OrderByDescending(x => x.time).Take(30000).ToList();
                 logs.AddRange(logItems);
             }
 
