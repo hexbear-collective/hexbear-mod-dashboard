@@ -32,11 +32,10 @@ namespace Hexbear.API.Services
                 var logItems = files.AsParallel().SelectMany(y =>
                 {
                     var logs = File.ReadAllLines(y).Select(x => JsonSerializer.Deserialize<DockerLog>(x)).ToList();
-                    var filename = new FileInfo(y).Name;
                     foreach (var log in logs)
                         log.container = hostname;
                     return logs;
-                }).OrderByDescending(x => x.time).ToList();
+                }).OrderByDescending(x => x.time).Take(10000).ToList();
                 logs.AddRange(logItems);
             }
 

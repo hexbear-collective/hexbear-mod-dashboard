@@ -28,7 +28,7 @@ namespace Hexbear.Frontend
                 .AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"))
                 .AddHttpClient("API", client => {
                     client.BaseAddress = new Uri(appsettings.APIUrl);
-                    client.Timeout = TimeSpan.FromMinutes(5);
+                    client.Timeout = TimeSpan.FromMinutes(10);
                     }).AddHttpMessageHandler<CookieHandler>().AddHttpMessageHandler<CustomMessageHandler>();
 
             builder.Services.AddSingleton<HexbearAPIClient>();
