@@ -37,6 +37,8 @@ public partial class LocalUser
 
     public bool OpenLinksInNewTab { get; set; }
 
+    public bool Admin { get; set; }
+
     public virtual ICollection<EmailVerification> EmailVerifications { get; set; } = new List<EmailVerification>();
 
     public virtual ICollection<LocalUserLanguage> LocalUserLanguages { get; set; } = new List<LocalUserLanguage>();

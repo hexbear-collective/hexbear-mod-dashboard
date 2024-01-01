@@ -103,7 +103,7 @@ namespace Hexbear.API
                 var userId = Convert.ToInt32(claims.Claims.First().Value);
                 user.LocalUser = await db.LocalUsers.Include(x => x.Person).FirstAsync(x => x.Id == userId);
             }
-            if (!(user?.LocalUser?.Person?.Admin ?? false) &&
+            if (!(user?.LocalUser?.Admin ?? false) &&
                 (user?.LocalUser?.Person?.Name ?? "") != "makotech222")
             {
                 context.Response.Clear();

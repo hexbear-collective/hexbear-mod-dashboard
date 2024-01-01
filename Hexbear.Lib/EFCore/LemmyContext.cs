@@ -1178,6 +1178,7 @@ public partial class LemmyContext : DbContext
                 .HasDefaultValueSql("'browser'::text")
                 .HasColumnName("theme");
             entity.Property(e => e.Totp2faSecret).HasColumnName("totp_2fa_secret");
+            entity.Property(e => e.Admin).HasColumnName("admin");
 
             entity.HasOne(d => d.Person).WithOne(p => p.LocalUser)
                 .HasForeignKey<LocalUser>(d => d.PersonId)
@@ -1554,8 +1555,6 @@ public partial class LemmyContext : DbContext
 
             entity.HasIndex(e => e.ActorId, "idx_person_actor_id").IsUnique();
 
-            entity.HasIndex(e => e.Admin, "idx_person_admin").HasFilter("admin");
-
             entity.HasIndex(e => e.InboxUrl, "idx_person_inbox_url").IsUnique();
 
             entity.HasIndex(e => e.Published, "idx_person_published").IsDescending();
@@ -1566,7 +1565,6 @@ public partial class LemmyContext : DbContext
                 .HasMaxLength(255)
                 .HasDefaultValueSql("generate_unique_changeme()")
                 .HasColumnName("actor_id");
-            entity.Property(e => e.Admin).HasColumnName("admin");
             entity.Property(e => e.Avatar).HasColumnName("avatar");
             entity.Property(e => e.BanExpires)
                 .HasColumnType("timestamp without time zone")

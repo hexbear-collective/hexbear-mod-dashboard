@@ -41,8 +41,6 @@ public partial class Person
 
     public string MatrixUserId { get; set; }
 
-    public bool Admin { get; set; }
-
     public bool BotAccount { get; set; }
 
     public DateTime? BanExpires { get; set; }
