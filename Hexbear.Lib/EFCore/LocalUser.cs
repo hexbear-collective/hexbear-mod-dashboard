@@ -31,8 +31,6 @@ public partial class LocalUser
 
     public bool? ShowReadPosts { get; set; }
 
-    public bool ShowNewPostNotifs { get; set; }
-
     public bool EmailVerified { get; set; }
 
     public bool AcceptedApplication { get; set; }

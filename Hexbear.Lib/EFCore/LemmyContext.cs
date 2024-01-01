@@ -1164,7 +1164,6 @@ public partial class LemmyContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("true")
                 .HasColumnName("show_bot_accounts");
-            entity.Property(e => e.ShowNewPostNotifs).HasColumnName("show_new_post_notifs");
             entity.Property(e => e.ShowNsfw).HasColumnName("show_nsfw");
             entity.Property(e => e.ShowReadPosts)
                 .IsRequired()
