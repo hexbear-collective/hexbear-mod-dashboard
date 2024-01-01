@@ -23,8 +23,6 @@ public partial class LocalUser
 
     public bool SendNotificationsToEmail { get; set; }
 
-    public DateTime ValidatorTime { get; set; }
-
     public bool? ShowScores { get; set; }
 
     public bool? ShowBotAccounts { get; set; }
@@ -36,8 +34,6 @@ public partial class LocalUser
     public bool AcceptedApplication { get; set; }
 
     public string Totp2faSecret { get; set; }
-
-    public string Totp2faUrl { get; set; }
 
     public bool OpenLinksInNewTab { get; set; }
 

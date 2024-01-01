@@ -1178,7 +1178,6 @@ public partial class LemmyContext : DbContext
                 .HasDefaultValueSql("'browser'::text")
                 .HasColumnName("theme");
             entity.Property(e => e.Totp2faSecret).HasColumnName("totp_2fa_secret");
-            entity.Property(e => e.Totp2faUrl).HasColumnName("totp_2fa_url");
             entity.Property(e => e.ValidatorTime)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
