@@ -10,6 +10,7 @@
 }
 else
 {
+    <RadzenText TextStyle="TextStyle.H2">@Post.Name</RadzenText>
     <RadzenText>@Post.Body</RadzenText>
     <RadzenText TextStyle="TextStyle.H5">Users who upvoted this post</RadzenText>
     <RadzenDataGrid AllowPaging="true" PageSize="25" AllowSorting="true" Data="@Post.PostLikes.Select(y => y.Person.Name).OrderBy(x => x)" TItem="string" Density="Density.Compact" ShowPagingSummary="true" PagerHorizontalAlign="HorizontalAlign.Right" Style="height:500px">
