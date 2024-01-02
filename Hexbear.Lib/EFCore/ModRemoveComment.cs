@@ -13,7 +13,7 @@ public partial class ModRemoveComment
 
     public string Reason { get; set; }
 
-    public bool? Removed { get; set; }
+    public bool Removed { get; set; }
 
     public DateTime When { get; set; }
 

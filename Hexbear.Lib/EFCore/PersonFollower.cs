@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class PersonFollower
 {
-    public int Id { get; set; }
-
     public int PersonId { get; set; }
 
     public int FollowerId { get; set; }

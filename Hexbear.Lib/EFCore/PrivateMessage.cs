@@ -23,7 +23,7 @@ public partial class PrivateMessage
 
     public string ApId { get; set; }
 
-    public bool? Local { get; set; }
+    public bool Local { get; set; }
 
     public virtual Person Creator { get; set; }
 

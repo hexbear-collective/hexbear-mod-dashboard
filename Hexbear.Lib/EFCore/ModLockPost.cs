@@ -11,7 +11,7 @@ public partial class ModLockPost
 
     public int PostId { get; set; }
 
-    public bool? Locked { get; set; }
+    public bool Locked { get; set; }
 
     public DateTime When { get; set; }
 

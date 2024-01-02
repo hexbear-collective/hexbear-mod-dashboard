@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class CommunityBlock
 {
-    public int Id { get; set; }
-
     public int PersonId { get; set; }
 
     public int CommunityId { get; set; }

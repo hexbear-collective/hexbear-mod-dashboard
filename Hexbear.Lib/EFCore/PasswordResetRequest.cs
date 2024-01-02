@@ -7,7 +7,7 @@ public partial class PasswordResetRequest
 {
     public int Id { get; set; }
 
-    public string TokenEncrypted { get; set; }
+    public string Token { get; set; }
 
     public DateTime Published { get; set; }
 

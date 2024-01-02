@@ -15,7 +15,7 @@ public partial class ModBanFromCommunity
 
     public string Reason { get; set; }
 
-    public bool? Banned { get; set; }
+    public bool Banned { get; set; }
 
     public DateTime? Expires { get; set; }
 

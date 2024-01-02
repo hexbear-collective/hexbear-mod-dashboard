@@ -1,0 +1,45 @@
+﻿
+<RadzenText TextStyle="TextStyle.H5">@Title</RadzenText>
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Search:</RadzenText>
+    <RadzenTextBox @oninput=@(args => OnSearchChange(args.Value.ToString())) Style="height: 25px;" />
+</RadzenStack>
+<RadzenDataGrid AllowPaging="true" PageSize="10" AllowSorting="true" Data="@FilteredReportItems" TItem="ReportItem" Density="Density.Compact" ShowPagingSummary="true" PagerHorizontalAlign="HorizontalAlign.Right" IsLoading="IsLoading" Style=@("height:" + this.Height.ToString() + "px;")>
+    <Columns>
+        <RadzenDataGridColumn Width="130px" TItem="ReportItem" Title="Report Type" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenText TextStyle="TextStyle.Body2" class="rz-text-truncate" style="margin-top:2px; margin-bottom:2px;">@data.ReportType</RadzenText>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ReportItem" Title="Posted By" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenLink Path="@($"/u/{data.PosterName}")">@data.PosterName</RadzenLink>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ReportItem" Title="Reported By" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenLink Path="@($"/u/{data.CreatorName}")">@data.CreatorName</RadzenLink>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="130px" TItem="ReportItem" Title="Reason" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenText TextStyle="TextStyle.Body2" class="rz-text-truncate" style="margin-top:2px; margin-bottom:2px;">@data.Reason</RadzenText>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="320px" TItem="ReportItem" Title="Original Text" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenText TextStyle="TextStyle.Body2" class="rz-text-truncate" style="width: 800px; margin-top:2px; margin-bottom:2px;">@data.OriginalText</RadzenText>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ReportItem" Title="Resolved By" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenLink Path="@($"/u/{data.ResolverName}")">@data.ResolverName</RadzenLink>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Width="130px" TItem="ReportItem" Title="Date Created" TextAlign="TextAlign.Left">
+            <Template Context="data">
+                <RadzenText TextStyle="TextStyle.Body2" class="rz-text-truncate" style="margin-top:2px; margin-bottom:2px;">@data.DateCreated</RadzenText>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

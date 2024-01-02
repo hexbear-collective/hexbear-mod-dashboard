@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class PersonAggregate
 {
-    public int Id { get; set; }
-
     public int PersonId { get; set; }
 
     public long PostCount { get; set; }

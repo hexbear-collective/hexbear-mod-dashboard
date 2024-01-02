@@ -37,7 +37,7 @@ public partial class Site
 
     public virtual LocalSite LocalSite { get; set; }
 
-    public virtual ICollection<SiteAggregate> SiteAggregates { get; set; } = new List<SiteAggregate>();
+    public virtual SiteAggregate SiteAggregate { get; set; }
 
-    public virtual ICollection<SiteLanguage> SiteLanguages { get; set; } = new List<SiteLanguage>();
+    public virtual ICollection<Language> Languages { get; set; } = new List<Language>();
 }

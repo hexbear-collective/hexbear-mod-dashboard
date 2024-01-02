@@ -1,0 +1,23 @@
+﻿@page "/comment/{Id:int}"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@inject HexbearAPIClient _client
+@inject MemoryCache _cache
+
+@if (this.Comment == null)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+}
+else
+{
+    <RadzenText>@Comment.Content</RadzenText>
+    <RadzenText TextStyle="TextStyle.H5">Users who upvoted comment</RadzenText>
+    <RadzenDataGrid AllowPaging="true" PageSize="25" AllowSorting="true" Data="@Comment.CommentLikes.Select(y => y.Person.Name).OrderBy(x => x)" TItem="string" Density="Density.Compact" ShowPagingSummary="true" PagerHorizontalAlign="HorizontalAlign.Right" Style="height:500px">
+        <Columns>
+            <RadzenDataGridColumn TItem="string" Title="Username" TextAlign="TextAlign.Left">
+                <Template Context="data">
+                    <RadzenLink Path="@($"/u/{data}")">@(data)</RadzenLink>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+}

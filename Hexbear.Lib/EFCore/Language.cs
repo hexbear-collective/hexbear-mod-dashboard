@@ -13,11 +13,11 @@ public partial class Language
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    public virtual ICollection<CommunityLanguage> CommunityLanguages { get; set; } = new List<CommunityLanguage>();
-
-    public virtual ICollection<LocalUserLanguage> LocalUserLanguages { get; set; } = new List<LocalUserLanguage>();
-
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
-    public virtual ICollection<SiteLanguage> SiteLanguages { get; set; } = new List<SiteLanguage>();
+    public virtual ICollection<Community> Communities { get; set; } = new List<Community>();
+
+    public virtual ICollection<LocalUser> LocalUsers { get; set; } = new List<LocalUser>();
+
+    public virtual ICollection<Site> Sites { get; set; } = new List<Site>();
 }

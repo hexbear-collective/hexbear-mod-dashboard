@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class CommentAggregate
 {
-    public int Id { get; set; }
-
     public int CommentId { get; set; }
 
     public long Score { get; set; }
@@ -19,7 +17,9 @@ public partial class CommentAggregate
 
     public int ChildCount { get; set; }
 
-    public int HotRank { get; set; }
+    public double HotRank { get; set; }
+
+    public double ControversyRank { get; set; }
 
     public virtual Comment Comment { get; set; }
 }

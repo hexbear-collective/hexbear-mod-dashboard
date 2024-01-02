@@ -1,0 +1,15 @@
+﻿@page "/reports"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@inject HexbearAPIClient _client
+@inject MemoryCache _cache
+
+<PageTitle>Reports</PageTitle>
+
+@if (ReportItems == null)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+}
+else
+{
+    <ReportDataTable Height="1000px" ReportItems="this.ReportItems" Title="Reports"></ReportDataTable>
+}

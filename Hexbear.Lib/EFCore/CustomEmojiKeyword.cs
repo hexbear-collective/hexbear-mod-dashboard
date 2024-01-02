@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class CustomEmojiKeyword
 {
-    public int Id { get; set; }
-
     public int CustomEmojiId { get; set; }
 
     public string Keyword { get; set; }

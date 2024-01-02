@@ -11,11 +11,11 @@ public partial class ModFeaturePost
 
     public int PostId { get; set; }
 
-    public bool? Featured { get; set; }
+    public bool Featured { get; set; }
 
     public DateTime When { get; set; }
 
-    public bool? IsFeaturedCommunity { get; set; }
+    public bool IsFeaturedCommunity { get; set; }
 
     public virtual Person ModPerson { get; set; }
 

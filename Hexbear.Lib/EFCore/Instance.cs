@@ -23,7 +23,13 @@ public partial class Instance
 
     public virtual FederationBlocklist FederationBlocklist { get; set; }
 
+    public virtual FederationQueueState FederationQueueState { get; set; }
+
+    public virtual ICollection<InstanceBlock> InstanceBlocks { get; set; } = new List<InstanceBlock>();
+
     public virtual ICollection<Person> People { get; set; } = new List<Person>();
+
+    public virtual ICollection<PostAggregate> PostAggregates { get; set; } = new List<PostAggregate>();
 
     public virtual Site Site { get; set; }
 }

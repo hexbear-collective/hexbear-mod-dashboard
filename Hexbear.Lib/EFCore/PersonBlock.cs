@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class PersonBlock
 {
-    public int Id { get; set; }
-
     public int PersonId { get; set; }
 
     public int TargetId { get; set; }

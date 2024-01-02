@@ -13,9 +13,7 @@ public partial class ModRemoveCommunity
 
     public string Reason { get; set; }
 
-    public bool? Removed { get; set; }
-
-    public DateTime? Expires { get; set; }
+    public bool Removed { get; set; }
 
     public DateTime When { get; set; }
 

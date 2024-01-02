@@ -23,7 +23,7 @@ public partial class Person
 
     public string Bio { get; set; }
 
-    public bool? Local { get; set; }
+    public bool Local { get; set; }
 
     public string PrivateKey { get; set; }
 
@@ -77,6 +77,8 @@ public partial class Person
 
     public virtual Instance Instance { get; set; }
 
+    public virtual ICollection<InstanceBlock> InstanceBlocks { get; set; } = new List<InstanceBlock>();
+
     public virtual LocalUser LocalUser { get; set; }
 
     public virtual ICollection<ModAddCommunity> ModAddCommunityModPeople { get; set; } = new List<ModAddCommunity>();
@@ -126,6 +128,8 @@ public partial class Person
     public virtual ICollection<PersonMention> PersonMentions { get; set; } = new List<PersonMention>();
 
     public virtual ICollection<PersonPostAggregate> PersonPostAggregates { get; set; } = new List<PersonPostAggregate>();
+
+    public virtual ICollection<PostAggregate> PostAggregates { get; set; } = new List<PostAggregate>();
 
     public virtual ICollection<PostLike> PostLikes { get; set; } = new List<PostLike>();
 

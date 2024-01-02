@@ -37,7 +37,7 @@ public partial class Post
 
     public string ApId { get; set; }
 
-    public bool? Local { get; set; }
+    public bool Local { get; set; }
 
     public string EmbedVideoUrl { get; set; }
 

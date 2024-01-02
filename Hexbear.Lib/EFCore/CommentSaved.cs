@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class CommentSaved
 {
-    public int Id { get; set; }
-
     public int CommentId { get; set; }
 
     public int PersonId { get; set; }

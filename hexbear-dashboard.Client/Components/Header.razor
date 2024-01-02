@@ -1,0 +1,18 @@
+﻿@rendermode InteractiveWebAssembly
+@inject NavigationManager Navigation
+
+<RadzenHeader>
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" Gap="0">
+        <RadzenButton Text="Hexbear Dashboard" Click=@(a => OnClick("/")) class="rz-ripple" Variant="Variant.Text" />
+        <span style="flex-grow: 1 !important;"></span>
+        <RadzenButton Text="Reports" Click=@(a => OnClick("/reports")) class="rz-ripple" Variant="Variant.Text" />
+        <RadzenButton Text="Users" Click=@(a => OnClick("/listusers")) class="rz-ripple" Variant="Variant.Text" />
+    </RadzenStack>
+</RadzenHeader>
+
+@code {
+    protected void OnClick(string path)
+    {
+        Navigation.NavigateTo(path);
+    }
+}

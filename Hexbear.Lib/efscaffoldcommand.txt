@@ -1,0 +1,4 @@
+dotnet ef dbcontext scaffold "Host=localhost;Port=5433;Database=lemmy;Username=lemmy;Password=password" Npgsql.EntityFrameworkCore.PostgreSQL -o Models2
+
+
+Then, Remove Comment.Path (Ltree) references.

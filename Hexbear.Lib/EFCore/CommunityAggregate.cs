@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class CommunityAggregate
 {
-    public int Id { get; set; }
-
     public int CommunityId { get; set; }
 
     public long Subscribers { get; set; }
@@ -25,7 +23,7 @@ public partial class CommunityAggregate
 
     public long UsersActiveHalfYear { get; set; }
 
-    public int HotRank { get; set; }
+    public double HotRank { get; set; }
 
     public virtual Community Community { get; set; }
 }

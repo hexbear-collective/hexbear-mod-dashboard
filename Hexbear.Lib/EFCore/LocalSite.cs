@@ -11,9 +11,9 @@ public partial class LocalSite
 
     public bool SiteSetup { get; set; }
 
-    public bool? EnableDownvotes { get; set; }
+    public bool EnableDownvotes { get; set; }
 
-    public bool? EnableNsfw { get; set; }
+    public bool EnableNsfw { get; set; }
 
     public bool CommunityCreationAdminOnly { get; set; }
 
@@ -27,7 +27,7 @@ public partial class LocalSite
 
     public string LegalInformation { get; set; }
 
-    public bool? HideModlogModNames { get; set; }
+    public bool HideModlogModNames { get; set; }
 
     public bool ApplicationEmailAdmins { get; set; }
 
@@ -35,7 +35,7 @@ public partial class LocalSite
 
     public int ActorNameMaxLength { get; set; }
 
-    public bool? FederationEnabled { get; set; }
+    public bool FederationEnabled { get; set; }
 
     public bool CaptchaEnabled { get; set; }
 
@@ -46,6 +46,8 @@ public partial class LocalSite
     public DateTime? Updated { get; set; }
 
     public bool ReportsEmailAdmins { get; set; }
+
+    public bool FederationSignedFetch { get; set; }
 
     public virtual ICollection<CustomEmoji> CustomEmojis { get; set; } = new List<CustomEmoji>();
 

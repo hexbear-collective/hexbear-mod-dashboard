@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class PostAggregate
 {
-    public int Id { get; set; }
-
     public int PostId { get; set; }
 
     public long Comments { get; set; }
@@ -27,9 +25,25 @@ public partial class PostAggregate
 
     public bool FeaturedLocal { get; set; }
 
-    public int HotRank { get; set; }
+    public double HotRank { get; set; }
 
-    public int HotRankActive { get; set; }
+    public double HotRankActive { get; set; }
+
+    public int CommunityId { get; set; }
+
+    public int CreatorId { get; set; }
+
+    public double ControversyRank { get; set; }
+
+    public int InstanceId { get; set; }
+
+    public double ScaledRank { get; set; }
+
+    public virtual Community Community { get; set; }
+
+    public virtual Person Creator { get; set; }
+
+    public virtual Instance Instance { get; set; }
 
     public virtual Post Post { get; set; }
 }

@@ -1,32 +1,36 @@
-﻿using Hexbear.Lib.Models;
+﻿using Hexbear.Lib.EFCore;
+using Hexbear.Lib.Models;
+using Hexbear.Lib.Services;
 using System.Net.Http.Json;
 
 namespace Hexbear.Lib
 {
     public class HexbearAPIClient
     {
-        private bool _isClientSide;
         private HttpClient _client;
+        private LemmyContext _dbContext;
+        private bool IsServer { get { return _client == null; } }
+        private UserService _userService = new UserService();
+        private PostService _postService = new PostService();
+        private ReportService _reportService = new ReportService();
 
-        public HexbearAPIClient(IHttpClientFactory clientFactory, bool isClientSide = true)
+        public HexbearAPIClient(IHttpClientFactory clientFactory = null, LemmyContext dbContext = null)
         {
-            _isClientSide = isClientSide;
-            _client = clientFactory.CreateClient("API");
+            if (clientFactory != null)
+            {
+                _client = clientFactory.CreateClient("API");
+            }
+            _dbContext = dbContext;
         }
 
         public async Task<PostResponse> GetPost(int id)
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    var response = await _client.GetFromJsonAsync<PostResponse>($"/post/{id}");
-                    return response;
-                }
+                if (IsServer)
+                    return await _postService.GetPostDetails(id, _dbContext);
+                else 
+                    return await _client.GetFromJsonAsync<PostResponse>($"/api/post/{id}");
             }
             catch (Exception e)
             {
@@ -38,15 +42,10 @@ namespace Hexbear.Lib
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
+                if (IsServer)
+                    return await _postService.GetCommentDetails(id, _dbContext);
                 else
-                {
-                    var response = await _client.GetFromJsonAsync<CommentResponse>($"/comment/{id}");
-                    return response;
-                }
+                    return await _client.GetFromJsonAsync<CommentResponse>($"/api/comment/{id}");
             }
             catch (Exception e)
             {
@@ -58,15 +57,10 @@ namespace Hexbear.Lib
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
+                if (IsServer)
+                    return await _userService.GetUserByName(_dbContext, username);
                 else
-                {
-                    var response = await _client.GetFromJsonAsync<UserResponse>($"/u/{username}");
-                    return response;
-                }
+                    return await _client.GetFromJsonAsync<UserResponse>($"/api/u/{username}");
             }
             catch (Exception e)
             {
@@ -78,15 +72,10 @@ namespace Hexbear.Lib
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
+                if (IsServer)
+                    return await _userService.ListUsers(_dbContext);
                 else
-                {
-                    var response = await _client.GetFromJsonAsync<ListUsersResponse>($"/ListUsers");
-                    return response;
-                }
+                    return await _client.GetFromJsonAsync<ListUsersResponse>($"/api/ListUsers");
             }
             catch (Exception e)
             {
@@ -98,15 +87,10 @@ namespace Hexbear.Lib
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
+                if (IsServer)
+                    return await _reportService.ListReports(_dbContext);
                 else
-                {
-                    var response = await _client.GetFromJsonAsync<ReportsResponse>($"/ListReports");
-                    return response;
-                }
+                    return await _client.GetFromJsonAsync<ReportsResponse>($"/api/ListReports");
             }
             catch (Exception e)
             {
@@ -118,15 +102,9 @@ namespace Hexbear.Lib
         {
             try
             {
-                if (!_isClientSide)
-                {
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    var response = await _client.GetFromJsonAsync<LogResponse>($"/ListLogs");
-                    return response;
-                }
+                if (IsServer)
+                    return new LogResponse();
+                return await _client.GetFromJsonAsync<LogResponse>($"/api/ListLogs");
             }
             catch (Exception e)
             {

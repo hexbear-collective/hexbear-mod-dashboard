@@ -24,9 +24,7 @@ public partial class Comment
 
     public string ApId { get; set; }
 
-    public bool? Local { get; set; }
-
-    //public LTree Path { get; set; }
+    public bool Local { get; set; }
 
     public bool Distinguished { get; set; }
 

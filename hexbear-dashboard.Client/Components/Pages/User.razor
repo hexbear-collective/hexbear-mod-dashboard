@@ -1,0 +1,46 @@
+﻿@page "/u/{Username}"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@inject HexbearAPIClient _client
+@if (this.Person == null)
+{
+    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+}
+else
+{
+    <PageTitle>User @this?.Person?.Name</PageTitle>
+
+    <RadzenText TextStyle="TextStyle.H5">Upvoted Removed Posts</RadzenText>
+    <RadzenDataGrid AllowPaging="true" PageSize="10" AllowSorting="true" Data="@UpvotedRemovedPosts" TItem="Post" Density="Density.Compact" ShowPagingSummary="true" PagerHorizontalAlign="HorizontalAlign.Right" IsLoading="Person == null" Style="height:400px">
+        <Columns>
+            <RadzenDataGridColumn Width="150px" TItem="Post" Title="Id" TextAlign="TextAlign.Left">
+                <Template Context="data">
+                    <RadzenLink Path="@($"/post/{data.Id}")">@data.Id</RadzenLink>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Post" Title="Title" TextAlign="TextAlign.Left">
+                <Template Context="data">
+                    <RadzenText title="@data.Name" TextStyle="TextStyle.Body2" class="rz-text-truncate" style="width: 800px; margin-top:2px; margin-bottom:2px;">@data.Name</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+
+    <RadzenText TextStyle="TextStyle.H5">Upvoted Removed Comments</RadzenText>
+    <RadzenDataGrid AllowPaging="true" PageSize="10" AllowSorting="true" Data="@UpvotedRemovedComments" TItem="Comment" Density="Density.Compact" ShowPagingSummary="true" PagerHorizontalAlign="HorizontalAlign.Right" IsLoading="Person == null" Style="height:400px">
+        <Columns>
+            <RadzenDataGridColumn Width="150px" TItem="Comment" Title="Id" TextAlign="TextAlign.Left">
+                <Template Context="data">
+                    <RadzenLink Path="@($"/comment/{data.Id}")">@data.Id</RadzenLink>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Comment" Title="Title" TextAlign="TextAlign.Left">
+                <Template Context="data">
+                    <RadzenText title="@data.Content" TextStyle="TextStyle.Body2" class="rz-text-truncate" style="width: 800px; margin-top:2px; margin-bottom:2px;">@data.Content</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+
+    <ReportDataTable Height="400px" ReportItems="@ReportedItems" Title="@($"Reports Against User ({GetAgainstCount()})")"></ReportDataTable>
+    <ReportDataTable Height="400px" ReportItems="@ReportsCreatedItems" Title="@($"Reports Created By User ({GetCreatedCount()})")"></ReportDataTable>
+}

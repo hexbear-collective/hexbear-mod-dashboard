@@ -25,7 +25,7 @@ public partial class Community
 
     public string ActorId { get; set; }
 
-    public bool? Local { get; set; }
+    public bool Local { get; set; }
 
     public string PrivateKey { get; set; }
 
@@ -61,8 +61,6 @@ public partial class Community
 
     public virtual ICollection<CommunityFollower> CommunityFollowers { get; set; } = new List<CommunityFollower>();
 
-    public virtual ICollection<CommunityLanguage> CommunityLanguages { get; set; } = new List<CommunityLanguage>();
-
     public virtual ICollection<CommunityModerator> CommunityModerators { get; set; } = new List<CommunityModerator>();
 
     public virtual ICollection<CommunityPersonBan> CommunityPersonBans { get; set; } = new List<CommunityPersonBan>();
@@ -79,5 +77,9 @@ public partial class Community
 
     public virtual ICollection<ModTransferCommunity> ModTransferCommunities { get; set; } = new List<ModTransferCommunity>();
 
+    public virtual ICollection<PostAggregate> PostAggregates { get; set; } = new List<PostAggregate>();
+
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+
+    public virtual ICollection<Language> Languages { get; set; } = new List<Language>();
 }

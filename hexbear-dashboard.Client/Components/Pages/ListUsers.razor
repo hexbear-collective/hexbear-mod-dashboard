@@ -1,0 +1,22 @@
+﻿@page "/listusers"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@inject HexbearAPIClient _client
+@inject MemoryCache _cache
+
+<PageTitle>Users</PageTitle>
+
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Search:</RadzenText>
+    <RadzenTextBox @oninput=@(args => OnSearchChange(args.Value.ToString())) Style="height: 25px;" />
+</RadzenStack>
+<RadzenDataGrid PageSize="@PerPage" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+                Data="@FilteredUsers" Count="@Count" TItem="string" ColumnWidth="300px" ShowPagingSummary="true"
+                IsLoading=@IsLoading>
+    <Columns>
+        <RadzenDataGridColumn TItem="string" Title="Name" Width="160px">
+            <Template Context="data">
+                <RadzenLink Path="@($"/u/{data}")">@(data)</RadzenLink>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

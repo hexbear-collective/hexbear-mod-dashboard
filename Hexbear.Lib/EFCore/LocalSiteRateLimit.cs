@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class LocalSiteRateLimit
 {
-    public int Id { get; set; }
-
     public int LocalSiteId { get; set; }
 
     public int Message { get; set; }
@@ -36,6 +34,10 @@ public partial class LocalSiteRateLimit
     public DateTime Published { get; set; }
 
     public DateTime? Updated { get; set; }
+
+    public int ImportUserSettings { get; set; }
+
+    public int ImportUserSettingsPerSecond { get; set; }
 
     public virtual LocalSite LocalSite { get; set; }
 }

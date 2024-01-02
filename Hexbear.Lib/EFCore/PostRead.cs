@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class PostRead
 {
-    public int Id { get; set; }
-
     public int PostId { get; set; }
 
     public int PersonId { get; set; }

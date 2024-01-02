@@ -5,8 +5,6 @@ namespace Hexbear.Lib.EFCore;
 
 public partial class SiteAggregate
 {
-    public int Id { get; set; }
-
     public int SiteId { get; set; }
 
     public long Users { get; set; }
