@@ -56,6 +56,6 @@ public partial class ListUsers
 
             return false;
 
-        }).ToList();
+        }).OrderBy(x => x,StringComparer.OrdinalIgnoreCase).ToList();
     }
 }
