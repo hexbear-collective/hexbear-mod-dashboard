@@ -8,7 +8,7 @@ namespace Hexbear.Lib.Services
     {
         public async Task<ListUsersResponse> ListUsers(LemmyContext db)
         {
-            var users = await db.Persons.OrderBy(x => x.Name).Select(x => x.Name).ToListAsync();
+            var users = await db.Persons.Where(x => x.Local).OrderBy(x => x.Name).Select(x => x.Name).Distinct().ToListAsync();
             return new ListUsersResponse()
             {
                 Users = users,
@@ -17,7 +17,7 @@ namespace Hexbear.Lib.Services
 
         public async Task<UserResponse> GetUserByName(LemmyContext db, string username)
         {
-            var person = await db.Persons.FirstOrDefaultAsync(x => x.Name == username);
+            var person = await db.Persons.Where(x => x.Local).FirstOrDefaultAsync(x => x.Name == username);
             if (person == null)
                 return null;
             var commentReports = await db.CommentReports.Where(x => x.Comment.CreatorId == person.Id).Select(x => new ReportItem()
