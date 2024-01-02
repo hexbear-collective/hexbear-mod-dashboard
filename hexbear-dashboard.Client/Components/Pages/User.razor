@@ -1,6 +1,8 @@
 ﻿@page "/u/{Username}"
 @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject HexbearAPIClient _client
+
+<PageTitle>User Details</PageTitle>
 @if (this.Person == null)
 {
     <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
