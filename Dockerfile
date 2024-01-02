@@ -8,7 +8,7 @@ EXPOSE 7081
 FROM mcr.microsoft.com/dotnet/nightly/sdk:8.0 AS build
 WORKDIR /src
 COPY ./hexbear-dashboard/hexbear-dashboard.csproj ./hexbear-dashboard/
-COPY ./hexbear-dashboard.Client/hexbear-dashboard.Client.csproj ./hexbear-dashboard.Client/
+COPY ./hexbear-dashboard.Client/ ./hexbear-dashboard.Client/
 COPY ./Hexbear.Lib ./Hexbear.Lib
 RUN dotnet restore "hexbear-dashboard/hexbear-dashboard.csproj"
 COPY ./hexbear-dashboard ./hexbear-dashboard
