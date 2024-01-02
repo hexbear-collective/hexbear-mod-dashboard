@@ -17,7 +17,11 @@ namespace Hexbear.Lib.Services
 
         public async Task<UserResponse> GetUserByName(LemmyContext db, string username)
         {
-            var person = await db.Persons.Where(x => x.Local).FirstOrDefaultAsync(x => x.Name == username);
+            var persons = await db.Persons.Where(x => x.Name == username).ToListAsync();
+            var person = persons.FirstOrDefault();
+            if (persons.Count > 1) {
+                person = persons.FirstOrDefault(x => x.Local) ?? persons.First();
+            }
             if (person == null)
                 return null;
             var commentReports = await db.CommentReports.Where(x => x.Comment.CreatorId == person.Id).Select(x => new ReportItem()
